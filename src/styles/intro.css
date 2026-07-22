@@ -1,0 +1,101 @@
+/* ============================================================
+   INTRO — animación de arranque tipo consola
+   ============================================================ */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: grid;
+  place-items: center;
+  background: #000;
+  overflow: hidden;
+  transition: opacity 1s var(--ease-soft);
+}
+.intro.is-hidden { opacity: 0; pointer-events: none; }
+.intro.is-done { display: none; }
+
+.intro__particles { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s ease; }
+.intro.is-lit .intro__particles { opacity: 0.8; }
+
+/* Halo azul que va apareciendo */
+.intro__glow {
+  position: absolute;
+  left: 50%; top: 52%;
+  width: 70vmax; height: 70vmax;
+  transform: translate(-50%, -50%) scale(0.6);
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(var(--accent-rgb), 0.22) 0%,
+    rgba(var(--accent-rgb), 0.08) 30%,
+    transparent 62%);
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 2.4s ease, transform 4.2s var(--ease-os);
+}
+.intro.is-lit .intro__glow { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.intro.is-zoom .intro__glow { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
+
+/* Nombre */
+.intro__name {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(2.4rem, 8vw, 6rem);
+  font-weight: 200;
+  letter-spacing: 0.18em;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.86) translateZ(0);
+  filter: blur(14px);
+  text-shadow:
+    0 0 24px rgba(var(--accent-rgb), 0.0);
+  transition:
+    opacity 2s var(--ease-soft),
+    transform 3s var(--ease-os),
+    filter 2s var(--ease-soft),
+    text-shadow 2.4s ease;
+  will-change: opacity, transform, filter;
+}
+.intro.is-lit .intro__name {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+  text-shadow:
+    0 0 30px rgba(var(--accent-rgb), 0.55),
+    0 0 80px rgba(var(--accent-rgb), 0.25);
+}
+/* Salida: fade + zoom hacia delante (arranque de consola) */
+.intro.is-zoom .intro__name {
+  opacity: 0;
+  transform: scale(1.6);
+  filter: blur(12px);
+}
+
+/* Línea fina bajo el nombre */
+.intro__line {
+  position: absolute;
+  left: 50%; top: calc(52% + clamp(46px, 8vw, 88px));
+  width: 0; height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.9), transparent);
+  opacity: 0;
+  transition: width 1.8s var(--ease-os) .4s, opacity 1s ease .4s;
+}
+.intro.is-lit .intro__line { width: min(340px, 60vw); opacity: 1; }
+.intro.is-zoom .intro__line { opacity: 0; }
+
+.intro__skip {
+  position: absolute;
+  right: 22px; bottom: 20px;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke);
+  background: rgba(255,255,255,0.03);
+  opacity: 0;
+  transition: opacity .5s ease .8s, color .2s, border-color .2s;
+}
+.intro.is-lit .intro__skip { opacity: 1; }
+.intro__skip:hover { color: var(--text-0); border-color: var(--stroke-strong); }
