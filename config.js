@@ -38,7 +38,7 @@ export const CONFIG = {
     sort: 'updated',             // updated | created | pushed | full_name
     excludeForks: true,          // ocultar forks
     excludeArchived: false,      // ocultar archivados
-    hideRepos: ['minithiago'],               // nombres exactos a ocultar
+    hideRepos: ['minithiago','PS_Projects'],                 // nombres exactos a ocultar
     pinnedFirst: ['portfolio'],  // nombres que quieres destacar primero
     // Token opcional (SOLO para desarrollo local, NUNCA lo subas a GitHub Pages).
     token: '',
