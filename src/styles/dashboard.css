@@ -305,11 +305,19 @@
    MÓVIL — la página pasa a ser scrollable y todo se apila
    ============================================================ */
 @media (max-width: 720px) {
-  html, body { overflow-x: hidden; overflow-y: auto; height: auto; }
+  /* Scroll NATURAL del documento: nada de height:100% ni overflow:hidden,
+     que es lo que recortaba el contenido por abajo en móvil. */
+  html, body {
+    height: auto;
+    min-height: 100%;
+    overflow-x: clip;      /* evita scroll horizontal sin crear scroller */
+    overflow-y: visible;   /* el viewport scrollea de forma natural */
+    position: static;
+  }
 
   .app {
     height: auto;
-    min-height: 100dvh;
+    min-height: 100svh;
     grid-template-rows: auto auto auto auto;
     row-gap: 4px;
   }
