@@ -1,116 +1,154 @@
-# 🎮 Portfolio estilo consola de nueva generación
+# 🎮 Next-Generation Console-Style Portfolio
 
-Una **Single Page Application** que recrea la experiencia visual y de navegación
-del dashboard de una consola de nueva generación (inspirado en la estética PS5),
-pero donde cada "juego" es uno de **tus proyectos de GitHub**.
+A **Single Page Application** that recreates the visual style and navigation
+experience of a next-generation console dashboard (inspired by the PS5 aesthetic),
+but where every "game" is one of **your GitHub projects**.
 
-Todo es **dinámico**: los proyectos se obtienen en tiempo real de la API pública
-de GitHub. No hay datos hardcodeados ni backend. Listo para **GitHub Pages**.
+Everything is **fully dynamic**: projects are fetched in real time from the public
+GitHub API. No hardcoded data and no backend required. Ready for **GitHub Pages**.
 
-> Inspirado en la estética, **sin usar assets con copyright** (logos, iconos,
-> sonidos o imágenes oficiales de Sony). Iconos, portadas y sonidos son propios
-> o generados.
-
----
-
-## ✨ Características
-
-- **Intro de arranque** cinematográfica (negro → halo azul → nombre con glow y
-  partículas → zoom hacia el menú).
-- **Carrusel horizontal** de tarjetas enormes con foco, escala de vecinas,
-  profundidad, parallax, blur y sombras suaves.
-- **Fondo dinámico** que cambia con cada proyecto (imagen desenfocada, gradientes,
-  glow y movimiento lento cinematográfico).
-- **Panel inferior** con descripción, tecnologías, lenguajes, README resumido,
-  commits y botones *Ver proyecto / Abrir GitHub / Ver demo* (GitHub Pages).
-- **Navegación** por teclado (← →), ratón (rueda / arrastre), touch y **gamepad**.
-- **Barra superior** con reloj, nombre, avatar y redes sociales.
-- **Extras premium**: cursor personalizado, partículas, favoritos, buscador,
-  filtro por lenguaje, vista de estadísticas, timeline, logros, certificaciones,
-  "actualmente desarrollando", pantalla completa, caché local y lazy loading.
-- **Sonidos** en `/sounds` (con síntesis de respaldo si faltan los archivos).
+> Inspired by the aesthetic, **without using copyrighted assets** (logos, icons,
+> sounds, or official Sony images). Icons, covers, and sounds are custom-made or generated.
 
 ---
 
-## 🚀 Uso
+## ✨ Features
 
-Al usar **módulos ES**, ábrelo con un servidor (no con `file://`):
+- Cinematic **boot intro** (black screen → blue halo → glowing name with
+  particles → zoom into the main menu).
+- **Horizontal carousel** of large cards with focus effects, neighboring card
+  scaling, depth, parallax, blur, and smooth shadows.
+- **Dynamic background** that changes with each project (blurred image, gradients,
+  glow effects, and slow cinematic motion).
+- **Bottom information panel** with description, technologies, languages,
+  summarized README, commits, and buttons for *View Project / Open GitHub / View Demo* (GitHub Pages).
+- Navigation via **keyboard** (← →), mouse (wheel / drag), touch, and **gamepad**.
+- **Top bar** with clock, name, avatar, and social media links.
+- **Premium extras**: custom cursor, particles, favorites, search, language
+  filtering, statistics view, timeline, achievements, certifications,
+  "currently developing", fullscreen mode, local cache, and lazy loading.
+- **Sound effects** stored in `/sounds` (with synthesized fallbacks when files are missing).
+
+---
+
+## 🚀 Usage
+
+Since the project uses **ES modules**, it must be served through a web server
+(not opened via `file://`):
 
 ```bash
-# Opción 1 — Python
+# Option 1 — Python
 python -m http.server 8080
 
-# Opción 2 — Node
+# Option 2 — Node
 npx serve .
 ```
 
-Luego abre `http://localhost:8080`.
+Then open:
+
+```text
+http://localhost:8080
+```
 
 ---
 
-## ⚙️ Personalización
+## ⚙️ Customization
 
-Edita **solo** `config.js`:
+Edit **only** `config.js`:
 
 ```js
 export const CONFIG = {
-  githubUsername: 'IvanNaranjo',   // tu usuario de GitHub
-  name: 'Ivan Naranjo',            // tu nombre
-  profileImage: '',                // URL de tu foto (o vacío = avatar de GitHub)
-  accent: '#2f9bff',               // color principal
+  githubUsername: 'IvanNaranjo',   // your GitHub username
+  name: 'Ivan Naranjo',            // your name
+  profileImage: '',                // profile image URL (empty = GitHub avatar)
+  accent: '#2f9bff',               // primary accent color
   social: { github: '…', linkedin: '…' },
-  // …timeline, logros, certificaciones, etc.
+  // …timeline, achievements, certifications, etc.
 };
 ```
 
-Todo lo demás se actualiza automáticamente.
+Everything else updates automatically.
 
-### Portadas de proyecto
-Si un repo contiene `banner.png`, `cover.png`, `preview.png`, `thumbnail.png` o
-`hero.png` (ver `coverCandidates` en `config.js`), se usa como portada.
-Si no, se genera una portada elegante con gradientes.
+### Project Covers
 
----
+If a repository contains `banner.png`, `cover.png`, `preview.png`,
+`thumbnail.png`, or `hero.png` (see `coverCandidates` in `config.js`),
+it will be used as the project cover.
 
-## 🌐 Desplegar en GitHub Pages
-
-1. Sube este proyecto a un repositorio.
-2. **Settings → Pages → Source: `main` / root**.
-3. Listo. (El archivo `.nojekyll` ya está incluido.)
-
-> El *token* de `config.js` es **opcional y solo para desarrollo local**.
-> Nunca lo subas a un repositorio público.
+Otherwise, an elegant gradient-based cover is generated automatically.
 
 ---
 
-## 🗂️ Estructura
+## 🌐 Deploying to GitHub Pages
 
-```
-config.js                 ← ÚNICO archivo a editar
+1. Upload this project to a GitHub repository.
+2. Go to **Settings → Pages → Source: `main` / root**.
+3. Done. (`.nojekyll` is already included.)
+
+> The token in `config.js` is **optional and intended only for local development**.
+> Never commit it to a public repository.
+
+---
+
+## 🗂️ Structure
+
+```text
+config.js                 ← ONLY file you need to edit
 index.html
-.nojekyll                 ← compatibilidad GitHub Pages
-/sounds                   ← efectos de sonido (opcionales)
+.nojekyll                 ← GitHub Pages compatibility
+
+/sounds                   ← sound effects (optional)
+
 /src
-  /api        github.js, cache.js       (datos + caché)
-  /components intro, topbar, toolbar,
-              carousel, card, panel, stats
-  /data       covers.js (portadas SVG), icons.js
-  /styles     base, intro, dashboard, panel, overlays
-  /utils      dom, format, sound, cursor,
-              particles, gamepad, favorites
-  /scripts    main.js  (orquestador)
+  /api
+    github.js
+    cache.js              (data + cache)
+
+  /components
+    intro
+    topbar
+    toolbar
+    carousel
+    card
+    panel
+    stats
+
+  /data
+    covers.js             (SVG covers)
+    icons.js
+
+  /styles
+    base
+    intro
+    dashboard
+    panel
+    overlays
+
+  /utils
+    dom
+    format
+    sound
+    cursor
+    particles
+    gamepad
+    favorites
+
+  /scripts
+    main.js               (application orchestrator)
 ```
 
 ---
 
-## 🎯 Rendimiento
+## 🎯 Performance
 
-- Imágenes con `loading="lazy"` y decodificación asíncrona.
-- Animaciones basadas en `transform`/`opacity` (sin reflow).
-- Caché local de la API con expiración configurable.
-- Partículas pausadas cuando la pestaña no está visible.
-- Respeta `prefers-reduced-motion`.
+- Images use `loading="lazy"` and asynchronous decoding.
+- Animations rely on `transform` and `opacity` to avoid reflows.
+- Local GitHub API cache with configurable expiration.
+- Particles automatically pause when the tab is not visible.
+- Respects `prefers-reduced-motion`.
 
 ---
 
-Hecho con HTML5 · CSS3 · JavaScript ES6+ (sin frameworks, sin Bootstrap, sin jQuery).
+Built with **HTML5 · CSS3 · JavaScript ES6+**
+
+No frameworks. No Bootstrap. No jQuery.
